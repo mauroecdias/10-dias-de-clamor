@@ -6,142 +6,98 @@
     <title>10 Dias de Clamor</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
-       /* Estilo da Página de Preenchimento */
+        body { 
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('fundo.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            font-family: 'Segoe UI', Tahoma, sans-serif; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
 
-body { 
-    /* Colocamos o mesmo fundo na página inteira */
-    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('fundo.jpg');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed; /* O fundo fica parado enquanto você rola */
-    font-family: 'Segoe UI', sans-serif; 
-    display: flex; 
-    justify-content: center; 
-    align-items: center;
-    min-height: 100vh;
-    margin: 0;
-    padding: 20px;
-}
+        .form-container { 
+            background: rgba(255, 255, 255, 0.9); /* Transparência ativa */
+            backdrop-filter: blur(10px); /* Efeito de vidro fosco */
+            padding: 30px; 
+            border-radius: 20px; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4); 
+            width: 100%; 
+            max-width: 380px; 
+            text-align: center;
+        }
 
-.form-container { 
-    /* Deixamos o formulário levemente transparente para aparecer o fundo atrás */
-    background: rgba(255, 255, 255, 0.95); 
-    padding: 30px; 
-    border-radius: 20px; 
-    box-shadow: 0 15px 35px rgba(0,0,0,0.3); 
-    width: 100%; 
-    max-width: 380px; 
-    text-align: center;
-}
+        .logo-frontend {
+            width: 120px;
+            margin-bottom: 10px;
+        }
 
-/* Estilo para o logo no frontend */
-.logo-frontend {
-    width: 100px; /* Um pouco menor para caber no formulário */
-    margin-bottom: 20px;
-}
+        h2 { color: #2c3e50; font-size: 22px; margin-bottom: 20px; }
 
-h2 {
-    color: #2c3e50;
-    font-size: 22px;
-    margin-bottom: 20px;
-}
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
 
-input {
-    width: 100%;
-    padding: 12px;
-    margin: 8px 0;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-sizing: border-box; /* Garante que o padding não quebre a largura */
-    font-size: 16px;
-}
+        button {
+            width: 100%;
+            padding: 15px;
+            margin-top: 20px;
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
 
-input:focus {
-    border-color: #3498db;
-    outline: none;
-    box-shadow: 0 0 5px rgba(52,152,219,0.3);
-}
+        button:hover { opacity: 0.9; transform: translateY(-2px); }
 
-button {
-    width: 100%;
-    padding: 15px;
-    margin-top: 20px;
-    background: linear-gradient(135deg, #2ecc71, #27ae60);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 18px;
-    font-weight: bold;
-    transition: transform 0.2s;
-}
-
-button:active { transform: scale(0.98); }
-
-/* Estilo da Área que vira Imagem (Canvas) */
-#canvas-export {
-    width: 1080px;
-    height: 1920px;
-    position: absolute;
-    left: -5000px; /* Escondido */
-    background-image: url('https://different-coffee-gch4prkg90.edgeone.app/fundo.jpg');
-    background-size: cover;
-    background-position: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    padding-top: 150px; /* Ajuste conforme o topo da sua imagem */
-}
-
-.logo-img {
-    width: 500px; /* Ajuste o tamanho do logo na imagem final */
-    margin-bottom: 100px;
-}
-
-.titulo-oracao {
-    color: #ffffff;
-    font-size: 60px;
-    font-weight: bold;
-    text-transform: uppercase;
-    margin-bottom: 50px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-}
-
-.names-list {
-    color: #ffffff;
-    font-size: 75px; /* Nomes bem destacados */
-    font-weight: 500;
-    line-height: 1.6;
-    text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
-}
-
-.user-name {
-    margin-top: auto; /* Empurra para o final */
-    margin-bottom: 200px;
-    color: #ffffff;
-    font-size: 45px;
-    font-style: italic;
-    opacity: 0.9;
-}
-        
-        /* Área da Imagem (Escondida ou fora da tela) */
+        /* ÁREA DA IMAGEM EXPORTADA (Invisível para o usuário) */
         #canvas-export {
             width: 1080px;
             height: 1920px;
             position: absolute;
-            left: -9999px; /* Mantém fora da visão do usuário */
+            left: -9999px;
             background-image: url('fundo.jpg');
             background-size: cover;
+            background-position: center;
             display: flex;
             flex-direction: column;
             align-items: center;
-            color: white; /* Ajuste conforme a cor do seu fundo */
             text-align: center;
         }
-        .logo { width: 400px; margin-top: 150px; }
-        .names-list { margin-top: 200px; font-size: 50px; line-height: 1.8; }
-        .user-name { margin-top: 100px; font-size: 40px; font-style: italic; }
+
+        .logo-img { width: 450px; margin-top: 180px; }
+        
+        .names-list {
+            color: #ffffff;
+            font-size: 70px;
+            font-weight: bold;
+            line-height: 1.6;
+            margin-top: 150px;
+            text-shadow: 3px 3px 10px rgba(0,0,0,0.7);
+        }
+
+        .user-name {
+            margin-top: auto;
+            margin-bottom: 250px;
+            color: #ffffff;
+            font-size: 45px;
+            font-style: italic;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+        }
     </style>
 </head>
 <body>
@@ -150,58 +106,67 @@ button:active { transform: scale(0.98); }
         <img src="logo.png" class="logo-frontend">
         <h2>Compromisso de Oração</h2>
         <input type="text" id="meuNome" placeholder="Seu Nome">
-        <hr>
-        <p>Vou orar por:</p>
+        <p style="margin: 15px 0 5px; font-weight: bold; color: #555;">Vou orar por:</p>
         <input type="text" class="nomeOracao" placeholder="Nome 1">
         <input type="text" class="nomeOracao" placeholder="Nome 2">
         <input type="text" class="nomeOracao" placeholder="Nome 3">
         <input type="text" class="nomeOracao" placeholder="Nome 4">
         <input type="text" class="nomeOracao" placeholder="Nome 5">
-        <br><br>
         <button onclick="processar()">SALVAR E BAIXAR</button>
     </div>
 
     <div id="canvas-export">
-        <img src="logo.png" class="logo">
+        <img src="logo.png" class="logo-img">
         <div class="names-list" id="display-nomes"></div>
         <div class="user-name" id="display-meu-nome"></div>
     </div>
 
     <script>
         async function processar() {
+            const btn = document.querySelector('button');
             const meuNome = document.getElementById('meuNome').value;
-            const nomesOracao = Array.from(document.querySelectorAll('.nomeOracao')).map(i => i.value);
+            const nomesOracao = Array.from(document.querySelectorAll('.nomeOracao'))
+                                     .map(i => i.value)
+                                     .filter(n => n.trim() !== "");
+
+            if (!meuNome) {
+                alert("Por favor, digite seu nome.");
+                return;
+            }
+
+            btn.innerText = "PROCESSANDO...";
+            btn.disabled = true;
 
             // 1. Atualizar visual da imagem
             document.getElementById('display-meu-nome').innerText = "Orado por: " + meuNome;
             document.getElementById('display-nomes').innerHTML = nomesOracao.join('<br>');
 
-            // 2. Gerar e baixar a imagem
-            const canvasArea = document.getElementById('canvas-export');
-            const canvas = await html2canvas(canvasArea, { useCORS: true });
-            const link = document.createElement('a');
-            link.download = 'minha-jornada-oracao.png';
-            link.href = canvas.toDataURL();
-            link.click();
+            try {
+                // 2. Gerar e baixar a imagem
+                const canvasArea = document.getElementById('canvas-export');
+                const canvas = await html2canvas(canvasArea, { useCORS: true, scale: 1 });
+                const link = document.createElement('a');
+                link.download = 'jornada-oracao.png';
+                link.href = canvas.toDataURL('image/png');
+                link.click();
 
-            // 3. Enviar para o Google Sheets
-            // Substitua pela URL do seu Web App do Google Scripts
-            const urlSheets = "https://script.google.com/macros/s/AKfycbw688WwTnMWUoz7mOOpL4y3YEu3s7x8oFJQlzk0bcE63Ec5Yn6LsKuNK6KIR_Mf4FX49g/exec";
-            fetch(urlSheets, {
-                method: 'POST',
-                mode: 'no-cors',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ meuNome, nomesOracao })
-            });
-            
-            alert("Salvo com sucesso!");
+                // 3. Enviar para o Google Sheets
+                const urlSheets = "https://script.google.com/macros/s/AKfycbw688WwTnMWUoz7mOOpL4y3YEu3s7x8oFJQlzk0bcE63Ec5Yn6LsKuNK6KIR_Mf4FX49g/exec";
+                await fetch(urlSheets, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ meuNome, nomesOracao })
+                });
+
+                alert("Sua jornada foi registrada e a imagem baixada!");
+            } catch (e) {
+                alert("Erro ao processar. Tente novamente.");
+            } finally {
+                btn.innerText = "SALVAR E BAIXAR";
+                btn.disabled = false;
+            }
         }
     </script>
 </body>
-
 </html>
-
-
-
-
-
