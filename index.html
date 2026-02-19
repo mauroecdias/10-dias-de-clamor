@@ -10,21 +10,28 @@
 <style>
 body {
   font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #0f4c81, #1b1b2f);
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
   margin: 0;
+  background: #0f4c81;
+}
+
+.container-wrapper {
+  text-align: center;
 }
 
 .container {
-  background: white;
+  width: 400px;
   padding: 30px;
   border-radius: 15px;
-  width: 400px;
   text-align: center;
   box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  background-image: url('https://different-coffee-gch4prkg90.edgeone.app/fundo.jpg');
+  background-size: cover;
+  background-position: center;
+  color: white;
 }
 
 .logo {
@@ -33,7 +40,6 @@ body {
 }
 
 h1 {
-  color: #0f4c81;
   margin-bottom: 20px;
 }
 
@@ -42,23 +48,24 @@ input {
   padding: 10px;
   margin-bottom: 10px;
   border-radius: 8px;
-  border: 1px solid #ccc;
+  border: none;
 }
 
 button {
   width: 100%;
-  padding: 12px;
-  margin-top: 10px;
+  padding: 14px;
+  margin-top: 15px;
   border: none;
   border-radius: 8px;
-  background: #0f4c81;
-  color: white;
+  background: #ffffff;
+  color: #0f4c81;
   font-size: 16px;
+  font-weight: bold;
   cursor: pointer;
 }
 
 button:hover {
-  background: #163e63;
+  opacity: 0.9;
 }
 
 footer {
@@ -71,7 +78,8 @@ footer {
 
 <body>
 
-<div>
+<div class="container-wrapper">
+  
   <div id="captureArea" class="container">
     <img src="https://inherent-copper-64qkrrgzuy.edgeone.app/logo.png" class="logo">
 
@@ -84,21 +92,21 @@ footer {
     <input type="text" id="nome3" placeholder="Nome de oração 3">
     <input type="text" id="nome4" placeholder="Nome de oração 4">
     <input type="text" id="nome5" placeholder="Nome de oração 5">
-
   </div>
 
-  <button onclick="enviar()">Enviar para Planilha</button>
-  <button onclick="capturar()">Baixar como Imagem</button>
+  <button onclick="salvarEBaixar()">Salvar e Baixar</button>
 
   <footer>
     Igreja Adventista do Sétimo Dia de Santo Amaro
   </footer>
+
 </div>
 
 <script>
 const scriptURL = "https://script.google.com/macros/s/AKfycbye8NvWNUNe6YPm64vVV9VgYLoZ6LoUEkHto-ItfnZOrWKHpVrfgKOi0u0pd16oaVpRKw/exec";
 
-function enviar() {
+function salvarEBaixar() {
+
   const data = {
     preenchedor: document.getElementById("preenchedor").value,
     nome1: document.getElementById("nome1").value,
@@ -112,16 +120,20 @@ function enviar() {
     method: "POST",
     body: JSON.stringify(data),
   })
-  .then(res => alert("Enviado com sucesso!"))
-  .catch(err => alert("Erro ao enviar"));
-}
+  .then(() => {
 
-function capturar() {
-  html2canvas(document.getElementById("captureArea")).then(canvas => {
-    const link = document.createElement("a");
-    link.download = "10-dias-de-clamor.png";
-    link.href = canvas.toDataURL();
-    link.click();
+    html2canvas(document.getElementById("captureArea"), {
+      useCORS: true
+    }).then(canvas => {
+      const link = document.createElement("a");
+      link.download = "10-dias-de-clamor.png";
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+    });
+
+  })
+  .catch(() => {
+    alert("Erro ao salvar na planilha.");
   });
 }
 </script>
