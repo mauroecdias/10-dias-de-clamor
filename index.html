@@ -79,10 +79,10 @@
             text-align: center;
         }
 
-        .logo-img { width: 450px; margin-top: 180px; }
+        .logo-img { width: 300px; margin-top: 180px; }
         
         .names-list {
-            color: #ffffff;
+            color: #000080;
             font-size: 70px;
             font-weight: bold;
             line-height: 1.6;
@@ -138,7 +138,7 @@
             btn.disabled = true;
 
             // 1. Atualizar visual da imagem
-            document.getElementById('display-meu-nome').innerText = "Orado por: " + meuNome;
+            document.getElementById('display-meu-nome').innerText = "Intercessor: " + meuNome;
             document.getElementById('display-nomes').innerHTML = nomesOracao.join('<br>');
 
             try {
@@ -146,7 +146,7 @@
                 const canvasArea = document.getElementById('canvas-export');
                 const canvas = await html2canvas(canvasArea, { useCORS: true, scale: 1 });
                 const link = document.createElement('a');
-                link.download = 'jornada-oracao.png';
+                link.download = '10-dias-SA.png';
                 link.href = canvas.toDataURL('image/png');
                 link.click();
 
@@ -159,7 +159,7 @@
                     body: JSON.stringify({ meuNome, nomesOracao })
                 });
 
-                alert("Sua jornada foi registrada e a imagem baixada!");
+                alert("A imagem foi baixada!");
             } catch (e) {
                 alert("Erro ao processar. Tente novamente.");
             } finally {
@@ -170,3 +170,4 @@
     </script>
 </body>
 </html>
+
