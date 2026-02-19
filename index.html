@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>10 Dias de Clamor</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #0f4c81, #1b1b2f);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.container {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  width: 400px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.logo {
+  width: 120px;
+  margin-bottom: 15px;
+}
+
+h1 {
+  color: #0f4c81;
+  margin-bottom: 20px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 8px;
+  background: #0f4c81;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #163e63;
+}
+
+footer {
+  margin-top: 20px;
+  font-size: 12px;
+  color: white;
+}
+</style>
+</head>
+
+<body>
+
+<div>
+  <div id="captureArea" class="container">
+    <img src="https://inherent-copper-64qkrrgzuy.edgeone.app/logo.png" class="logo">
+
+    <h1>10 Dias de Clamor</h1>
+
+    <input type="text" id="preenchedor" placeholder="Seu nome">
+
+    <input type="text" id="nome1" placeholder="Nome de oração 1">
+    <input type="text" id="nome2" placeholder="Nome de oração 2">
+    <input type="text" id="nome3" placeholder="Nome de oração 3">
+    <input type="text" id="nome4" placeholder="Nome de oração 4">
+    <input type="text" id="nome5" placeholder="Nome de oração 5">
+
+  </div>
+
+  <button onclick="enviar()">Enviar para Planilha</button>
+  <button onclick="capturar()">Baixar como Imagem</button>
+
+  <footer>
+    Igreja Adventista do Sétimo Dia de Santo Amaro
+  </footer>
+</div>
+
+<script>
+const scriptURL = "https://script.google.com/macros/s/AKfycbye8NvWNUNe6YPm64vVV9VgYLoZ6LoUEkHto-ItfnZOrWKHpVrfgKOi0u0pd16oaVpRKw/exec";
+
+function enviar() {
+  const data = {
+    preenchedor: document.getElementById("preenchedor").value,
+    nome1: document.getElementById("nome1").value,
+    nome2: document.getElementById("nome2").value,
+    nome3: document.getElementById("nome3").value,
+    nome4: document.getElementById("nome4").value,
+    nome5: document.getElementById("nome5").value,
+  };
+
+  fetch(scriptURL, {
+    method: "POST",
+    body: JSON.stringify(data),
+  })
+  .then(res => alert("Enviado com sucesso!"))
+  .catch(err => alert("Erro ao enviar"));
+}
+
+function capturar() {
+  html2canvas(document.getElementById("captureArea")).then(canvas => {
+    const link = document.createElement("a");
+    link.download = "10-dias-de-clamor.png";
+    link.href = canvas.toDataURL();
+    link.click();
+  });
+}
+</script>
+
+</body>
+</html>
